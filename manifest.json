@@ -1,1 +1,16 @@
 
+{
+  "name": "Petal Chain University Finder",
+  "short_name": "Petal Chain",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/5850/5850252.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
