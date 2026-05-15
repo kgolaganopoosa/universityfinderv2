@@ -1,8 +1,7 @@
-
 {
   "name": "Petal Chain University Finder",
   "short_name": "Petal Chain",
-  "start_url": ".",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#2563eb",
