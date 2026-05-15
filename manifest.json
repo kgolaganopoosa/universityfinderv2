@@ -2,8 +2,8 @@
   "name": "Petal Chain - 2026 SA University Finder",
   "short_name": "Petal Chain",
   "description": "Complete directory of all 26 public universities in South Africa",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/universityfinderv2/",
+  "scope": "/universityfinderv2/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#2563eb",
@@ -32,4 +32,3 @@
     }
   ]
 }
-
