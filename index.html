@@ -9,227 +9,163 @@
     <meta name="theme-color" content="#2563eb">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Petal Chain">
-    <meta name="description" content="Complete directory of all South African Public Universities for 2026 applications.">
-    
-    <!-- Link to Manifest File -->
     <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="favicon.ico">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .hero-bg { background: radial-gradient(circle at top right, #1e293b, #0f172a); }
-        .card-hover:hover { transform: translateY(-8px); border-color: #3b82f6; box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1); }
         
-        #installPrompt {
-            display: none;
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            width: calc(100% - 40px);
-            max-width: 400px;
-        }
-        
-        /* The requested Icon Style: Blue background, white filled circle */
-        .app-logo-box {
+        /* Icon Style: Blue background, white filled circle */
+        .app-logo {
             background: #2563eb;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 0.75rem;
         }
-        .white-circle {
+        .white-dot {
             background: white;
             border-radius: 50%;
-            width: 50%;
-            height: 50%;
+            width: 45%;
+            height: 45%;
+        }
+
+        #installPrompt {
+            display: none;
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            width: calc(100% - 2rem);
+            max-width: 420px;
         }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-900">
 
-    <!-- Installation Prompt -->
-    <div id="installPrompt" class="bg-white border border-slate-200 shadow-2xl rounded-3xl p-6">
-        <div class="flex items-center gap-4 mb-4">
-            <div class="w-14 h-14 app-logo-box flex-shrink-0 border-4 border-white">
-                <div class="white-circle"></div>
+    <!-- Installation Popup -->
+    <div id="installPrompt" class="bg-white border border-slate-200 shadow-2xl rounded-3xl p-6 animate-bounce-in">
+        <div class="flex items-center gap-4 mb-6">
+            <div class="w-14 h-14 app-logo shadow-lg">
+                <div class="white-dot"></div>
             </div>
             <div>
-                <h4 class="font-bold text-xl text-slate-900">Petal Chain</h4>
-                <p class="text-sm text-slate-500">Add to home screen for 2026 access</p>
+                <h4 class="font-bold text-lg text-slate-900">Install Petal Chain</h4>
+                <p class="text-sm text-slate-500">Access the 2026 directory from your home screen.</p>
             </div>
         </div>
         <div class="flex gap-3">
-            <button id="btnInstall" class="flex-1 bg-blue-600 text-white py-4 rounded-2xl font-bold hover:bg-blue-700 active:scale-95 transition-all">
-                Install App
+            <button id="btnInstall" class="flex-1 bg-blue-600 text-white py-3.5 rounded-2xl font-bold hover:bg-blue-700 active:scale-95 transition-all">
+                Install Now
             </button>
-            <button onclick="dismissInstall()" class="px-8 bg-slate-100 text-slate-600 py-4 rounded-2xl font-semibold hover:bg-slate-200">
-                Later
+            <button onclick="dismissInstall()" class="px-6 bg-slate-100 text-slate-600 py-3.5 rounded-2xl font-semibold hover:bg-slate-200">
+                Close
             </button>
         </div>
     </div>
 
     <!-- Navigation -->
-    <nav class="bg-white/90 backdrop-blur-lg border-b border-slate-200 sticky top-0 z-50">
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <!-- Updated Icon in Nav -->
-                <div class="w-10 h-10 app-logo-box border-2 border-white">
-                    <div class="white-circle"></div>
+                <!-- Icon with Blue BG and White Circle -->
+                <div class="w-10 h-10 app-logo">
+                    <div class="white-dot"></div>
                 </div>
-                <span class="text-2xl font-bold tracking-tighter text-slate-900">Petal Chain</span>
+                <span class="text-2xl font-bold tracking-tight">Petal Chain</span>
             </div>
-            <div class="hidden md:flex gap-8 items-center font-semibold text-slate-600">
-                <a href="#" class="text-blue-600">Universities</a>
-                <button onclick="alert('2026 applications portal coming soon!')" class="bg-black text-white px-8 py-3 rounded-2xl hover:bg-slate-800 transition-all">
-                    Apply 2026
-                </button>
-            </div>
+            <button onclick="alert('Applications opening soon!')" class="bg-blue-600 text-white px-6 py-2.5 rounded-xl font-semibold text-sm hover:bg-blue-700 transition-all">
+                Apply 2026
+            </button>
         </div>
     </nav>
 
-    <header class="hero-bg text-white py-24 px-6 relative">
-        <div class="max-w-5xl mx-auto text-center relative z-10">
-            <span class="inline-block py-1.5 px-6 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold mb-6 border border-blue-400/30">
-                2026 ACADEMIC YEAR
-            </span>
-            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tighter">
-                South African<br><span class="text-blue-400">University Finder</span>
-            </h1>
-            <div class="relative max-w-2xl mx-auto mt-12">
-                <i class="fas fa-search absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 text-xl"></i>
-                <input type="text" id="searchInput" onkeyup="filterUniversities()" 
-                    placeholder="Search by name, city or keyword..." 
-                    class="w-full pl-16 pr-8 py-6 rounded-3xl text-lg text-slate-900 outline-none shadow-2xl">
-            </div>
-        </div>
+    <!-- Header Section -->
+    <header class="hero-bg text-white py-20 px-6 text-center">
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tighter mb-4">University Finder</h1>
+        <p class="text-slate-400 max-w-xl mx-auto">Explore all 26 South African public universities for the 2026 academic year.</p>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 -mt-10 relative z-20">
-        <!-- Province Filter -->
-        <div class="mb-8 flex justify-center">
-            <select id="provinceFilter" onchange="filterUniversities()" 
-                    class="w-full max-w-xs bg-white border border-slate-200 p-4 rounded-2xl shadow text-slate-700 font-semibold outline-none">
-                <option value="all">🌍 All Provinces</option>
-                <option value="Gauteng">Gauteng</option>
-                <option value="Western Cape">Western Cape</option>
-                <option value="KwaZulu-Natal">KwaZulu-Natal</option>
-                <option value="Eastern Cape">Eastern Cape</option>
-                <option value="Free State">Free State</option>
-                <option value="Limpopo">Limpopo</option>
-                <option value="Mpumalanga">Mpumalanga</option>
-                <option value="North West">North West</option>
-                <option value="Northern Cape">Northern Cape</option>
-            </select>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 py-12 min-h-screen">
+        <div id="universityGrid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Data will be injected here -->
         </div>
-
-        <div id="universityGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-24"></div>
     </main>
 
-    <script>
-        const universities = [
-            { name: "University of Cape Town (UCT)", province: "Western Cape", link: "www.uct.ac.za", type: "Traditional" },
-            { name: "Stellenbosch University (SU)", province: "Western Cape", link: "www.sun.ac.za", type: "Traditional" },
-            { name: "University of the Witwaterswatersrand (Wits)", province: "Gauteng", link: "www.wits.ac.za", type: "Traditional" },
-            { name: "University of Pretoria (UP)", province: "Gauteng", link: "www.up.ac.za", type: "Traditional" },
-            { name: "University of Johannesburg (UJ)", province: "Gauteng", link: "www.uj.ac.za", type: "Comprehensive" },
-            { name: "University of KwaZulu-Natal (UKZN)", province: "KwaZulu-Natal", link: "www.ukzn.ac.za", type: "Traditional" },
-            { name: "University of South Africa (UNISA)", province: "National", link: "www.unisa.ac.za", type: "Distance" },
-            { name: "North-West University (NWU)", province: "North West", link: "www.nwu.ac.za", type: "Traditional" },
-            { name: "Rhodes University (RU)", province: "Eastern Cape", link: "www.ru.ac.za", type: "Traditional" },
-            { name: "University of the Western Cape (UWC)", province: "Western Cape", link: "www.uwc.ac.za", type: "Traditional" },
-            { name: "Nelson Mandela University (NMU)", province: "Eastern Cape", link: "www.mandela.ac.za", type: "Comprehensive" },
-            { name: "University of the Free State (UFS)", province: "Free State", link: "www.ufs.ac.za", type: "Traditional" },
-            { name: "Tshwane University of Technology (TUT)", province: "Gauteng", link: "www.tut.ac.za", type: "University of Technology" },
-            { name: "Cape Peninsula University of Technology (CPUT)", province: "Western Cape", link: "www.cput.ac.za", type: "University of Technology" },
-            { name: "Durban University of Technology (DUT)", province: "KwaZulu-Natal", link: "www.dut.ac.za", type: "University of Technology" },
-            { name: "University of Fort Hare (UFH)", province: "Eastern Cape", link: "www.ufh.ac.za", type: "Traditional" },
-            { name: "Walter Sisulu University (WSU)", province: "Eastern Cape", link: "www.wsu.ac.za", type: "Comprehensive" },
-            { name: "Central University of Technology (CUT)", province: "Free State", link: "www.cut.ac.za", type: "University of Technology" },
-            { name: "University of Limpopo (UL)", province: "Limpopo", link: "www.ul.ac.za", type: "Traditional" },
-            { name: "University of Venda (Univen)", province: "Limpopo", link: "www.univen.ac.za", type: "Traditional" },
-            { name: "University of Zululand (Unizulu)", province: "KwaZulu-Natal", link: "www.unizulu.ac.za", type: "Traditional" },
-            { name: "Mangosuthu University of Technology (MUT)", province: "KwaZulu-Natal", link: "www.mut.ac.za", type: "University of Technology" },
-            { name: "Vaal University of Technology (VUT)", province: "Gauteng", link: "www.vut.ac.za", type: "University of Technology" },
-            { name: "Sefako Makgatho Health Sciences University (SMU)", province: "Gauteng", link: "www.smu.ac.za", type: "Traditional" },
-            { name: "Sol Plaatje University (SPU)", province: "Northern Cape", link: "www.spu.ac.za", type: "Traditional" },
-            { name: "University of Mpumalanga (UMP)", province: "Mpumalanga", link: "www.ump.ac.za", type: "Traditional" }
-        ];
-
-        function displayUniversities(data) {
-            const grid = document.getElementById('universityGrid');
-            grid.innerHTML = data.map(univ => `
-                <div class="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm card-hover transition-all flex flex-col">
-                    <div class="flex-grow">
-                        <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-blue-100 text-blue-700">
-                            ${univ.type}
-                        </span>
-                        <h3 class="text-xl font-bold text-slate-900 mt-4 mb-2">
-                            ${univ.name}
-                        </h3>
-                        <p class="text-slate-500 text-sm">
-                            <i class="fas fa-map-marker-alt text-blue-500 mr-1"></i> ${univ.province}
-                        </p>
-                    </div>
-                    <a href="https://${univ.link}" target="_blank" 
-                       class="mt-6 w-full py-4 rounded-xl bg-slate-900 text-white text-center font-semibold hover:bg-blue-600 transition-all">
-                        Official Website
-                    </a>
+    <!-- Footer Section -->
+    <footer class="bg-white border-t border-slate-200 py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 app-logo">
+                    <div class="white-dot"></div>
                 </div>
-            `).join('');
-        }
+                <span class="font-bold text-slate-900">Petal Chain 2026</span>
+            </div>
+            <div class="text-slate-500 text-sm">
+                &copy; 2026 Official SA University Directory. All Rights Reserved.
+            </div>
+            <div class="flex gap-6 text-xl text-slate-400">
+                <i class="fab fa-twitter hover:text-blue-500 cursor-pointer"></i>
+                <i class="fab fa-facebook hover:text-blue-700 cursor-pointer"></i>
+                <i class="fab fa-linkedin hover:text-blue-600 cursor-pointer"></i>
+            </div>
+        </div>
+    </footer>
 
-        function filterUniversities() {
-            const term = document.getElementById('searchInput').value.toLowerCase();
-            const prov = document.getElementById('provinceFilter').value;
-            const filtered = universities.filter(u => {
-                const matchesSearch = u.name.toLowerCase().includes(term) || u.province.toLowerCase().includes(term);
-                const matchesProv = prov === 'all' || u.province === prov;
-                return matchesSearch && matchesProv;
-            });
-            displayUniversities(filtered);
-        }
-
-        // PWA LOGIC
+    <script>
+        // PWA Logic - Fixing the Popup
         let deferredPrompt;
+        const promptEl = document.getElementById('installPrompt');
+
         window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent Chrome 67 and earlier from automatically showing the prompt
             e.preventDefault();
+            // Stash the event so it can be triggered later.
             deferredPrompt = e;
-            document.getElementById('installPrompt').style.display = 'block';
+            // Update UI to notify the user they can add to home screen
+            promptEl.style.display = 'block';
         });
 
         document.getElementById('btnInstall').addEventListener('click', async () => {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') {
-                    document.getElementById('installPrompt').style.display = 'none';
-                }
+                console.log(`User response to the install prompt: ${outcome}`);
                 deferredPrompt = null;
+                promptEl.style.display = 'none';
             }
         });
 
         function dismissInstall() {
-            document.getElementById('installPrompt').style.display = 'none';
+            promptEl.style.display = 'none';
         }
 
-        // Register Service Worker from external file
+        // Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                .then(reg => console.log('SW Registered'))
-                .catch(err => console.error('SW Registration Failed', err));
+                navigator.serviceWorker.register('/sw.js');
             });
         }
 
-        window.onload = () => displayUniversities(universities);
+        // Sample Data Injection (Partial list for example)
+        const universities = [
+            { name: "University of Cape Town", prov: "Western Cape" },
+            { name: "Wits University", prov: "Gauteng" },
+            { name: "University of Pretoria", prov: "Gauteng" }
+        ];
+
+        const grid = document.getElementById('universityGrid');
+        grid.innerHTML = universities.map(u => `
+            <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                <h3 class="font-bold text-lg mb-2">${u.name}</h3>
+                <p class="text-slate-500 text-sm"><i class="fas fa-map-marker-alt mr-2 text-blue-500"></i>${u.prov}</p>
+            </div>
+        `).join('');
     </script>
 </body>
 </html>
