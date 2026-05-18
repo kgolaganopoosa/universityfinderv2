@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#2563eb">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link class="manifest" href="manifest.json">
+    <link rel="manifest" href="manifest.json">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
@@ -328,19 +328,17 @@
             }
         }
 
-        // Optimized PWA Install Prompt Logic
+        // Original-style PWA Install Prompt Logic with standalone verification guard
         let deferredPrompt;
-        
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
 
-            // Check if the app is standalone (already installed) or if the user installed it in this browser session
-            const isRunningStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-            const isAppInstalledFlag = localStorage.getItem('pwaInstalled') === 'true';
-
-            // Only display prompt if it's absent from home screen and has not been marked installed
-            if (!isRunningStandalone && !isAppInstalledFlag) {
+            // Check if application is already launched standalone or within app shell context
+            const isInstalled = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+            
+            // Only toggle popup visible if it is explicitly absent from the home screen layout
+            if (!isInstalled) {
                 document.getElementById('installPrompt').style.display = 'block';
             }
         });
@@ -350,7 +348,6 @@
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
                 if (outcome === 'accepted') {
-                    localStorage.setItem('pwaInstalled', 'true');
                     document.getElementById('installPrompt').style.display = 'none';
                 }
                 deferredPrompt = null;
@@ -359,33 +356,12 @@
 
         function dismissInstall() {
             document.getElementById('installPrompt').style.display = 'none';
-            // Optional: Uncomment below line to suppress popup for 24 hours if dismissed
-            // localStorage.setItem('pwaInstalled', 'true'); 
         }
-
-        // Failsafe listener for successful installs outside direct banner interaction
-        window.addEventListener('appinstalled', () => {
-            localStorage.setItem('pwaInstalled', 'true');
-            document.getElementById('installPrompt').style.display = 'none';
-            deferredPrompt = null;
-        });
 
         // Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js')
-                .then(reg => {
-                    // Force updates to active service workers if layout or cache modifications happened
-                    reg.onupdatefound = () => {
-                        const installingWorker = reg.installing;
-                        installingWorker.onstatechange = () => {
-                            if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                                // Clear flag to notify user if structural asset changes happen
-                                localStorage.removeItem('pwaInstalled');
-                            }
-                        };
-                    };
-                })
                 .catch(err => console.log("Service Worker registration failed: ", err));
             });
         }
