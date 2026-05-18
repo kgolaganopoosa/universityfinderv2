@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#2563eb">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="manifest" href="manifest.json">
+    <link class="manifest" href="manifest.json">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
@@ -48,6 +48,12 @@
             z-index: 1000;
             width: calc(100% - 40px);
             max-width: 400px;
+        }
+
+        /* Modal custom scrollbar hiding if needed */
+        .modal-overlay {
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease-in-out;
         }
     </style>
 </head>
@@ -134,6 +140,68 @@
         <div id="universityGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pb-24"></div>
     </main>
 
+    <!-- Legal Popups (Modals) -->
+    <!-- Privacy Policy Modal -->
+    <div id="privacyModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 modal-overlay flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 shadow-2xl border border-slate-100">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-slate-900">Privacy Policy</h3>
+                <button onclick="closeModal('privacyModal')" class="text-slate-400 hover:text-slate-600 text-xl"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="text-slate-600 space-y-4 text-sm">
+                <p><strong>Effective Date:</strong> January 1, 2026</p>
+                <p>Welcome to Petal Chain. Your privacy is critically important to us. This Privacy Policy details how we handle information across our South African University Finder platform.</p>
+                <h4 class="font-bold text-slate-900 text-base mt-4">1. Information We Do Not Collect</h4>
+                <p>Petal Chain operates as an open-access information directory. We do not require account registration, and we do not collect, track, or store any of your personal identifiable information (PII) during your usage of this platform.</p>
+                <h4 class="font-bold text-slate-900 text-base mt-4">2. Cookies and Local Storage</h4>
+                <p>We may use local storage and caching mechanics solely to enable Progressive Web App (PWA) features and configurations, allowing offline usage. No tracking or marketing cookies are deployed by our application.</p>
+                <h4 class="font-bold text-slate-900 text-base mt-4">3. External Links</h4>
+                <p>Our platform strictly provides direct navigational links to official institution websites. Once you redirect to an external portal, you are subject to the respective university's standalone privacy guidelines.</p>
+            </div>
+            <button onclick="closeModal('privacyModal')" class="mt-8 w-full py-4 rounded-2xl bg-slate-900 text-white font-semibold hover:bg-blue-600 transition-all">Acknowledge</button>
+        </div>
+    </div>
+
+    <!-- Terms of Use Modal -->
+    <div id="termsUseModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 modal-overlay flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 shadow-2xl border border-slate-100">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-slate-900">Terms of Use</h3>
+                <button onclick="closeModal('termsUseModal')" class="text-slate-400 hover:text-slate-600 text-xl"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="text-slate-600 space-y-4 text-sm">
+                <p><strong>Last Updated:</strong> January 1, 2026</p>
+                <h4 class="font-bold text-slate-900 text-base">1. Acceptance of Terms</h4>
+                <p>By accessing or interacting with Petal Chain's 2026 SA University Finder, you unconditionally express agreement with these Terms of Use. If you disagree, you must discontinue platform use instantly.</p>
+                <h4 class="font-bold text-slate-900 text-base mt-4">2. Permitted Use</h4>
+                <p>Users are permitted to use this site for lawful, non-commercial informational search queries. Any automated scraping, crawling, or attempt to compromise server integrations is explicitly prohibited.</p>
+                <h4 class="font-bold text-slate-900 text-base mt-4">3. Content Availability</h4>
+                <p>We provide directory assistance dynamically. Petal Chain reserves the right to modify, restrict accessibility, or update software features without notice to ensure absolute operational standards.</p>
+            </div>
+            <button onclick="closeModal('termsUseModal')" class="mt-8 w-full py-4 rounded-2xl bg-slate-900 text-white font-semibold hover:bg-blue-600 transition-all">Acknowledge</button>
+        </div>
+    </div>
+
+    <!-- Terms and Conditions Modal -->
+    <div id="termsCondModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 modal-overlay flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[80vh] overflow-y-auto p-8 shadow-2xl border border-slate-100">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-slate-900">Terms and Conditions</h3>
+                <button onclick="closeModal('termsCondModal')" class="text-slate-400 hover:text-slate-600 text-xl"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="text-slate-600 space-y-4 text-sm">
+                <p><strong>Last Updated:</strong> January 1, 2026</p>
+                <h4 class="font-bold text-slate-900 text-base">1. Disclaimer of Accuracy</h4>
+                <p>While Petal Chain strives to maintain information accuracy for the 2026 academic calendar, all prospective information, closing dates, and institute designations are delivered "as-is". Absolute validation must happen directly on official university frameworks.</p>
+                <h4 class="font-bold text-slate-900 text-base mt-4">2. Limitation of Liability</h4>
+                <p>Petal Chain, its architects, or partners shall not be held liable for any admissions decisions, missed deadlines, or subsequent institutional disagreements stemming from information displayed on this repository.</p>
+                <h4 class="font-bold text-slate-900 text-base mt-4">3. Governing Law</h4>
+                <p>These terms and conditions are framed and subject exclusively to the active legal structures and regulations of the Republic of South Africa.</p>
+            </div>
+            <button onclick="closeModal('termsCondModal')" class="mt-8 w-full py-4 rounded-2xl bg-slate-900 text-white font-semibold hover:bg-blue-600 transition-all">Acknowledge</button>
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-slate-900 text-slate-400 py-16 px-6">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
@@ -143,10 +211,22 @@
                 </div>
                 <span class="text-white text-xl font-bold">Petal Chain</span>
             </div>
-            <p class="text-sm">© 2026 Petal Chain • Official South African University Directory</p>
+            
+            <div class="flex flex-col items-center gap-2">
+                <p class="text-sm">© 2026 Petal Chain • Official South African University Directory</p>
+                <!-- Legal Menu Links -->
+                <div class="flex gap-4 text-xs font-semibold text-slate-500">
+                    <button onclick="openModal('privacyModal')" class="hover:text-blue-400 transition-colors">Privacy Policy</button>
+                    <span>•</span>
+                    <button onclick="openModal('termsUseModal')" class="hover:text-blue-400 transition-colors">Terms of Use</button>
+                    <span>•</span>
+                    <button onclick="openModal('termsCondModal')" class="hover:text-blue-400 transition-colors">Terms & Conditions</button>
+                </div>
+            </div>
+
             <div class="flex gap-6">
                 <a href="#" class="hover:text-white"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="hover:text-white"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="hover:text-white"><i class="fab fa-x-twitter"></i></a>
                 <a href="#" class="hover:text-white"><i class="fab fa-linkedin-in"></i></a>
             </div>
         </div>
@@ -228,12 +308,41 @@
             displayUniversities(filtered);
         }
 
-        // PWA Install Prompt Logic
+        // Modal Functionality
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.add('hidden');
+            document.body.style.overflow = ''; 
+        }
+
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Optimized PWA Install Prompt Logic
         let deferredPrompt;
+        
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
-            document.getElementById('installPrompt').style.display = 'block';
+
+            // Check if the app is standalone (already installed) or if the user installed it in this browser session
+            const isRunningStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+            const isAppInstalledFlag = localStorage.getItem('pwaInstalled') === 'true';
+
+            // Only display prompt if it's absent from home screen and has not been marked installed
+            if (!isRunningStandalone && !isAppInstalledFlag) {
+                document.getElementById('installPrompt').style.display = 'block';
+            }
         });
 
         document.getElementById('btnInstall').addEventListener('click', async () => {
@@ -241,6 +350,7 @@
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
                 if (outcome === 'accepted') {
+                    localStorage.setItem('pwaInstalled', 'true');
                     document.getElementById('installPrompt').style.display = 'none';
                 }
                 deferredPrompt = null;
@@ -249,12 +359,33 @@
 
         function dismissInstall() {
             document.getElementById('installPrompt').style.display = 'none';
+            // Optional: Uncomment below line to suppress popup for 24 hours if dismissed
+            // localStorage.setItem('pwaInstalled', 'true'); 
         }
+
+        // Failsafe listener for successful installs outside direct banner interaction
+        window.addEventListener('appinstalled', () => {
+            localStorage.setItem('pwaInstalled', 'true');
+            document.getElementById('installPrompt').style.display = 'none';
+            deferredPrompt = null;
+        });
 
         // Service Worker Registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js')
+                .then(reg => {
+                    // Force updates to active service workers if layout or cache modifications happened
+                    reg.onupdatefound = () => {
+                        const installingWorker = reg.installing;
+                        installingWorker.onstatechange = () => {
+                            if (installingWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                // Clear flag to notify user if structural asset changes happen
+                                localStorage.removeItem('pwaInstalled');
+                            }
+                        };
+                    };
+                })
                 .catch(err => console.log("Service Worker registration failed: ", err));
             });
         }
